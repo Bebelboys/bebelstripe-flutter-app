@@ -6,6 +6,7 @@ import './settings_screen.dart';
 import '../widgets/mode_selector_card.dart';
 import '../widgets/color_picker.dart';
 import '../widgets/brightness_slider.dart';
+import '../widgets/animated_music_spectrum_button.dart';
 import '../providers/led_wall.dart';
 
 class MainScreen extends StatelessWidget {

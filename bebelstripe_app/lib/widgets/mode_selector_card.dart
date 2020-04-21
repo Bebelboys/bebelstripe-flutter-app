@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/animated_music_spectrum_button.dart';
+
 class ModeSelectorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class ModeSelectorCard extends StatelessWidget {
                   icon: Icon(Icons.highlight),
                   onPressed: () {},
                 ),
+                Expanded(flex: 1, child: AnimatedMusicSpectrumButton()),
                 IconButton(
                   icon: Icon(Icons.ac_unit),
                   onPressed: () {},
