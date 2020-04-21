@@ -21,22 +21,30 @@ class ModeSelectorCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.music_note),
-                  onPressed: () {},
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.music_note),
+                    onPressed: () {},
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.gavel),
-                  onPressed: () {},
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.gavel),
+                    onPressed: () {},
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.highlight),
-                  onPressed: () {},
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.highlight),
+                    onPressed: () {},
+                  ),
                 ),
                 Expanded(flex: 1, child: AnimatedMusicSpectrumButton()),
-                IconButton(
-                  icon: Icon(Icons.ac_unit),
-                  onPressed: () {},
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.ac_unit),
+                    onPressed: () {},
+                  ),
                 ),
               ],
             ),

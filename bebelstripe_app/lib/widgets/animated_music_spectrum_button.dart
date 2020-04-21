@@ -14,7 +14,7 @@ class _AnimatedMusicSpectrumButtonState
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: 30,
       width: double.infinity,
       child: GestureDetector(
         onTap: () {
