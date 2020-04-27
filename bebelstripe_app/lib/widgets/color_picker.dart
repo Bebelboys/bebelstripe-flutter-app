@@ -41,7 +41,7 @@ class ColorPicker extends StatelessWidget {
       height: 100,
       child: Center(
         child: Card(
-          elevation: 10,
+          elevation: 5,
           child: ListTile(
             title: Text(titleString),
             subtitle: Text(subtitleString),

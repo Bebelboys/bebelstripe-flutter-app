@@ -7,6 +7,7 @@ import '../widgets/mode_selector_card.dart';
 import '../widgets/color_picker.dart';
 import '../widgets/brightness_slider.dart';
 import '../widgets/animated_music_spectrum_button.dart';
+import '../widgets/pong_control.dart';
 import '../providers/led_wall.dart';
 
 class MainScreen extends StatelessWidget {
@@ -34,16 +35,18 @@ class MainScreen extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ModeSelectorCard(),
-                  SizedBox(height: 100),
-                  GestureDetector(
-                    child: Icon(Icons.power_settings_new, size: 100),
-                    onTap: () {},
-                  ),
+                  SizedBox(height: 25),
+                  // GestureDetector(
+                  //   child: Icon(Icons.power_settings_new, size: 100),
+                  //   onTap: () {},
+                  // ),
                   ColorPicker('Level color', 'Color of the bars',
                       PickableColors.primaryColor),
                   ColorPicker('Dot color', 'Color of the dot',
                       PickableColors.secondaryColor),
                   BrightnessSlider(),
+                  SizedBox(height: 50),
+                  PongControl(),
                 ],
               ),
             ),

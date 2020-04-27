@@ -11,7 +11,7 @@ class BrightnessSlider extends StatelessWidget {
       width: double.infinity,
       height: 100,
       child: Card(
-        elevation: 10,
+        elevation: 5,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

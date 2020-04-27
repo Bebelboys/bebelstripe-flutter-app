@@ -22,10 +22,12 @@ class _AnimatedMusicSpectrumButtonState
             _isOn = !_isOn;
           });
         },
-        child: FlareActor(
-          'assets/animations/Music_Spectrum_Icon.flr',
-          animation: _isOn ? 'playMusicSpectrum' : 'stopMusicSpectrum',
-        ),
+        child: _isOn
+            ? Icon(Icons.music_note)
+            : FlareActor(
+                'assets/animations/Music_Spectrum_Icon.flr',
+                animation: true ? 'playMusicSpectrum' : 'stopMusicSpectrum',
+              ),
       ),
     );
   }

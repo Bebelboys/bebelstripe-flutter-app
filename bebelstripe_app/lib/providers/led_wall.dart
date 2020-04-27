@@ -7,6 +7,7 @@ enum LedWallMode {
   musicSpectrum,
   stroboscope,
   ambient,
+  pong,
 }
 
 List<int> colorToRGBIntList(Color color) =>
@@ -78,6 +79,8 @@ class LedWall with ChangeNotifier {
 
       _ambientPulsing = settings['ambient']['pulsing'];
       _ambientFrequency = settings['ambient']['frequency'];
+
+      _initComplete = true;
     } catch (error) {
       throw error;
     } finally {
