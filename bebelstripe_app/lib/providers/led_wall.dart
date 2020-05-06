@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,15 @@ enum LedWallMode {
   ambient,
   pong,
 }
+
+final Map<LedWallMode, String> ledWallModeEnumToString = {
+  LedWallMode.musicSpectrum: "music",
+  LedWallMode.stroboscope: "strobo",
+  LedWallMode.pong: "pong",
+};
+
+final Map<String, LedWallMode> ledWallModeStringToEnum =
+    ledWallModeEnumToString.map((k, v) => MapEntry(v, k));
 
 List<int> colorToRGBIntList(Color color) =>
     [color.red, color.green, color.blue];
@@ -37,6 +47,7 @@ class LedWall with ChangeNotifier {
   double get brightnessInPercent => _brightnessInPercent;
   Color get primaryColor => _primaryColor;
   Color get secondaryColor => _secondaryColor;
+  LedWallMode get mode => _mode;
 
   LedWall({
     @required String serverUrl,
@@ -54,7 +65,36 @@ class LedWall with ChangeNotifier {
   Future<void> fetchAllSettings() async {
     try {
       var settingsResponse = await http.get('$_serverUrl/settings');
+      var controlResponse = await http.get('$_serverUrl/control');
       var settings = json.decode(settingsResponse.body);
+      var control = json.decode(controlResponse.body);
+
+      _on = control['on'];
+      String modeString = control['mode'];
+      LedWallMode modeEnum = ledWallModeStringToEnum[modeString];
+      switch (modeEnum) {
+        case LedWallMode.musicSpectrum:
+          {
+            _mode = LedWallMode.musicSpectrum;
+          }
+          break;
+
+        case LedWallMode.stroboscope:
+          {
+            _mode = LedWallMode.stroboscope;
+          }
+          break;
+        case LedWallMode.pong:
+          {
+            _mode = LedWallMode.pong;
+          }
+          break;
+        default:
+          {
+            throw Exception('Invalid mode of LedWall: ${control['on']}');
+          }
+          break;
+      }
 
       _brightnessInPercent = 100 * settings['general']['brightness'];
 
@@ -118,6 +158,7 @@ class LedWall with ChangeNotifier {
   }
 
   Future<void> setColor(Color newColor, String colorType) async {
+    // TODO: implement optimistic updating
     if (colorType == 'primaryColor') {
       _primaryColor = newColor;
     } else if (colorType == 'secondaryColor') {
@@ -140,6 +181,30 @@ class LedWall with ChangeNotifier {
         print('An error occured during setColor');
         throw Exception('Status code > 400');
       }
+    } catch (error) {
+      throw error;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> setMode(LedWallMode mode) async {
+    // TODO: implement optimistic updating
+    try {
+      var response = await http.put(
+        '$_serverUrl/control',
+        headers: httpJsonHeaders,
+        body: json.encode(
+          {
+            'mode': ledWallModeEnumToString[mode],
+          },
+        ),
+      );
+      if (response.statusCode > 400) {
+        print('An error occured during setMode');
+        throw Exception('Status code > 400');
+      }
+      _mode = ledWallModeStringToEnum[json.decode(response.body)['mode']];
     } catch (error) {
       throw error;
     } finally {

@@ -75,9 +75,26 @@ class PongControlArrow extends StatelessWidget {
     }
 
     return GestureDetector(
-        child: Icon(icon),
+        child: Icon(
+          icon,
+          size: 50,
+        ),
         onTapDown: (_) => movePaddle(movementDirection),
         onTapCancel: () => movePaddle(0),
         onTapUp: (_) => movePaddle(0));
+  }
+}
+
+class PongPlayerSelection extends StatefulWidget {
+  @override
+  _PongPlayerSelectionState createState() => _PongPlayerSelectionState();
+}
+
+class _PongPlayerSelectionState extends State<PongPlayerSelection> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
   }
 }

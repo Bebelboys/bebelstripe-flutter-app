@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 
 import './settings_screen.dart';
 import '../widgets/mode_selector_card.dart';
-import '../widgets/color_picker.dart';
-import '../widgets/brightness_slider.dart';
-import '../widgets/animated_music_spectrum_button.dart';
+import '../widgets/music_spectrum_control.dart';
 import '../widgets/pong_control.dart';
 import '../providers/led_wall.dart';
 
@@ -16,6 +14,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var ledWall = Provider.of<LedWall>(context);
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -27,7 +26,7 @@ class MainScreen extends StatelessWidget {
         ],
         title: Text('BebelStripe'),
       ),
-      body: !Provider.of<LedWall>(context).initComplete
+      body: !ledWall.initComplete
           ? Center(
               child: SizedBox(
                   width: 100, height: 100, child: CircularProgressIndicator()))
@@ -36,17 +35,9 @@ class MainScreen extends StatelessWidget {
                 children: <Widget>[
                   ModeSelectorCard(),
                   SizedBox(height: 25),
-                  // GestureDetector(
-                  //   child: Icon(Icons.power_settings_new, size: 100),
-                  //   onTap: () {},
-                  // ),
-                  ColorPicker('Level color', 'Color of the bars',
-                      PickableColors.primaryColor),
-                  ColorPicker('Dot color', 'Color of the dot',
-                      PickableColors.secondaryColor),
-                  BrightnessSlider(),
-                  SizedBox(height: 50),
-                  PongControl(),
+                  if (ledWall.mode == LedWallMode.musicSpectrum)
+                    MusicSpectrumControl(),
+                  if (ledWall.mode == LedWallMode.pong) PongControl(),
                 ],
               ),
             ),
